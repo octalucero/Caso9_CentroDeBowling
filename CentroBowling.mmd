@@ -1,63 +1,63 @@
 :::mermaid
 classDiagram
    class CentroBowling{
-        - Nombre
-        - Direccion
+        String Nombre
+        String Direccion
     }
     class PistaBowling{
-        - ID_Pista
-        - CapacidadMaxJugadores
+        String Pista
+        String CapacidadMaxJugadores
     }
     class Cliente{
-        - ID_Cliente
-        - Nombre
-        - Direccion
-        - CorreoElectronico
+        String Cliente
+        String Nombre
+        String Direccion
+        String CorreoElectronico
         + ReservaPista()
         + PedidosCafeteria()
     }
     class Cafetería{
-        - Nombre
-        - Descripcion
+        String Nombre
+        String Descripcion
         + OfrecePlatos()
         + OfreceBebidas()
     }
     class Plato{
-        - Nombre
-        - Descripcion
-        - Precio
+        String Nombre
+        String Descripcion
+        String Precio
     }
     class Bebida{
-        - Nombre
-        - Descripcion
-        - Precio
+        String Nombre
+        String Descripcion
+        int Precio
     }
     class ReservaPista{
-        - Dia 
-        - Hora
+        date Dia 
+        date Hora
         + RegistraPedidosCafeteria()
         + RegistraPartidas()
     }
     class Partida{
-        - ID_Partida
+        String Partida
     }
     class Jugador{
-        - ID_Jugador
-        - Nombre
+        String ugador
+        String Nombre
         + RegistrarPuntaje
     }
     class Turno{
         + RegistrarPuntaje()
     }
-CentroBowling --> "1" PistaBowling
-  CentroBowling --> "1" Cafetería
-  Cliente --> "1" ReservaPista
-  Cliente --> "n" Partida
-  Cafetería --> "n" Plato
-  Cafetería --> "n" Bebida
+  CentroBowling --> "1" PistaBowling
+  CentroBowling --> "1..*" Cafetería
+  Cliente --> "1..*" ReservaPista
+  Cliente --> "1..*" Partida
+  Cafetería --> "1..*" Plato
+  Cafetería --> "1..*" Bebida
   ReservaPista --> "1" PistaBowling
-  ReservaPista --> "n" Partida
-  ReservaPista --> "1" Cliente
-  Partida --> "n" Jugador
-  Partida --> "n" Turno
-  Jugador --> "n" Turno
+  ReservaPista --> "1" Partida
+  ReservaPista --> "1..*" Cliente
+  Partida --> "1..*" Jugador
+  Partida --> "1" Turno
+  Jugador --> "1..*" Turno
