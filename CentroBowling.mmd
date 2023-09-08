@@ -1,0 +1,63 @@
+:::mermaid
+classDiagram
+   class CentroBowling{
+        - Nombre
+        - Direccion
+    }
+    class PistaBowling{
+        - ID_Pista
+        - CapacidadMaxJugadores
+    }
+    class Cliente{
+        - ID_Cliente
+        - Nombre
+        - Direccion
+        - CorreoElectronico
+        + ReservaPista()
+        + PedidosCafeteria()
+    }
+    class Cafetería{
+        - Nombre
+        - Descripcion
+        + OfrecePlatos()
+        + OfreceBebidas()
+    }
+    class Plato{
+        - Nombre
+        - Descripcion
+        - Precio
+    }
+    class Bebida{
+        - Nombre
+        - Descripcion
+        - Precio
+    }
+    class ReservaPista{
+        - Dia 
+        - Hora
+        + RegistraPedidosCafeteria()
+        + RegistraPartidas()
+    }
+    class Partida{
+        - ID_Partida
+    }
+    class Jugador{
+        - ID_Jugador
+        - Nombre
+        + RegistrarPuntaje
+    }
+    class Turno{
+        + RegistrarPuntaje()
+    }
+CentroBowling --> "1" PistaBowling
+  CentroBowling --> "1" Cafetería
+  Cliente --> "1" ReservaPista
+  Cliente --> "n" Partida
+  Cafetería --> "n" Plato
+  Cafetería --> "n" Bebida
+  ReservaPista --> "1" PistaBowling
+  ReservaPista --> "n" Partida
+  ReservaPista --> "1" Cliente
+  Partida --> "n" Jugador
+  Partida --> "n" Turno
+  Jugador --> "n" Turno
