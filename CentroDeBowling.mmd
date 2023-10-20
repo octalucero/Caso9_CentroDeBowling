@@ -4,6 +4,18 @@ classDiagram
         -int max_capacidad
 
         +crear()
+        +verificarEstadoPista()
+    }
+
+    class EstadoPista {
+        -String nombre
+        -String descripcion
+    }
+
+    class HistorialEstadoPista{
+        -String fecha_hora_inicio
+        -datetime fecha_hora_fin
+        -estado estado
     }
 
     class Cliente {
@@ -16,7 +28,7 @@ classDiagram
 
         +crear()
         +hacerReserva()
-    }
+    }  
 
     class Reserva {
         -Date dia_reserva
@@ -24,17 +36,43 @@ classDiagram
 
         +crear()
         +mostrar()
+        +cancelar()
         +calcularCostoTotal()
         +cobrarCostoTotal()
+        +verificarEstadoReserva()
     }
 
-    class Cafeteria {
+    class EstadoReserva {
         -String nombre
         -String descripcion
-        -int precio
+    }
+
+    class HistorialEstadoReserva {
+        -datetime fecha_hora_inicio
+        -datetime fecha_hora_fin
+        -estado estado
+    }
+
+    class Menu {
+        -String nombre
+        -String descripcion
+        -Float precio
 
         +crear()
         +mostrar()
+    }
+
+    class ProductoMenu{
+        -float precio
+        -String productoMenu
+    }
+
+    class Producto {
+        -String nombre
+        -String descripcion
+        -Float precio
+
+        +ActulizarPrecioProducto()
     }
 
     class Pedido {
@@ -55,54 +93,89 @@ classDiagram
         +crear()
     }
 
+    class PrecioProducto {
+        -float precio
+        -date fecha_vigencia
+
+        +verificarPrecioProducto()
+    }
+
+    class AsignacionPedido {
+        -String descripcion
+        -int precio
+
+        +verificaEleccionPedido()
+        +obetnerPrecio()
+    }
+
     class Partida {
         -String identificador_unico
         -String descripcion
-        -int cant_jugadores
-        -int puntaje_jugadores
         
         +crear()
+        +cancelarPartida()
         +calcularPuntajeTotal()
+        +calcularCantidadJugadores()
     }
 
-    class Jugador {
+    class Fila {
         -String identificador_unico
         -String nombre
         -turnos listaturnos
 
         +crear()
+        +verificarListaTurnos()
     }
 
     class Turno {
         -String descripcion
-        -oportunidad listaoportunidades
+        -tirada listatiradas
 
         +crear()
         +Calcularpinostotales()
+        +verificarPosicion()
+        +verificarListaTiradas()
     }
 
-    class Oportunidad {
+    class DetalleTurno {
+        -String nombre
+        -String descripcion
+        -posicion listaposicion
+
+        +calcularTurno()
+    }
+
+    class Tirada {
         -String descripcion
         -int pinos_derribados
 
         +crear()    
     }
 
+
 Cliente --> Reserva
-Cliente --> Pedido
-
-Reserva --> Pista
-Reserva --> Partida
-Reserva --> DetallePedido
-
 Pedido --> DetallePedido
 
-Cafeteria --> Pedido
+Reserva --> Pista
+Reserva --> HistorialEstadoReserva
 
-Partida --> Turno 
-Turno --> Oportunidad
+AsignacionPedido --> Menu
+AsignacionPedido --> Producto
+Pedido --> AsignacionPedido
 
-Jugador --> Partida
+Partida --> Fila
+Fila --> Turno
+Turno --> DetalleTurno
+DetalleTurno --> Tirada
 
+HistorialEstadoReserva --> EstadoReserva
+
+Pista --> HistorialEstadoPista
+HistorialEstadoPista --> EstadoPista
+
+Reserva --> Partida
+Reserva <-- DetallePedido
+
+Producto --> PrecioProducto
 
 

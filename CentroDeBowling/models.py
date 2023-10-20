@@ -10,11 +10,19 @@ class Client(models.Model):
     correo = models.EmailField(max_length=75)
 
     def hacer_reserva(self):
-        return ...
+        pass
+
+
 
 class Reserva(models.Model):
     dia_reserva = models.DateField()
     hora_reserva = models.TimeField()
+
+    def calcular_costo_total(self):
+        pass
+
+    def cobrar_costo_total(self):
+        pass
 
 class Cafeteria(models.Model):
     nombre = models.CharField()
