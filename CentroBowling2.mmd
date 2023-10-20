@@ -1,0 +1,99 @@
+erDiagram
+    Cliente {
+        -String num_cliente (PK)
+        -String Nombre
+        -String direccion
+        -int num_telefono
+        -String correo
+    }
+    Pista {
+        -String numero_identificativo (PK)
+        -String max_capacidad
+    }
+    EstadoPista {
+        -String nombre (PK)
+        -String descripcion
+    }
+    HistorialEstadoPista {
+        -datetime fecha_hora_inicio (PK)
+        -datetime fecha_hora_fin
+    }
+    Reserva {
+        -date dia_reserva (PK)
+        -date hora_reserva (PK)
+    }
+    EstadoReserva {
+        -String nombre (PK)
+        -String descripcion
+    }
+    HistorialEstadoReserva {
+        -datetime fecha_hora_inicio (PK)
+        -datetime fecha_hora_fin
+    }
+    Menu {
+        -String nombre (PK)
+        -String descripcion
+        -String precio
+    }
+    ProductoMenu {
+        -int precio (PK)
+        -String productoMenu
+    }
+    Producto {
+        -String nombre (PK)
+        -String descripcion
+        -int precio
+    }
+    Pedido {
+        -String descripcion (PK)
+        -datetime hora
+    }
+    DetallePedido {
+        -String reserva (PK)
+        -String pedido (PK)
+        -String descripcion
+    }
+    PrecioProducto {
+        -int precio (PK)
+        -date fecha_vigencia (PK)
+    }
+    AsignacionPedido {
+        -String descripcion (PK)
+        -int precio
+    }
+    Partida {
+        -String identificador_unico (PK)
+        -String descripcion
+    }
+    Fila {
+        -String identificador_unico (PK)
+        -String nombre
+    }
+    Turno {
+        -String descripcion (PK)
+    }
+    DetalleTurno {
+        -String nombre (PK)
+        -String descripcion
+    }
+    Tirada {
+        -String descripcion (PK)
+        -String pinos_derribados
+    }
+    
+    Participante ||--o{ Reserva : Hace
+    Pedido }|..|{ Detallepedido : Contiene
+    Reserva ||--o{ Pista : Para
+    Reserva ||--o{ Historialestadoreserva : Tiene
+    Asignacionpedido ||--o{ Menu : Asignado
+    Asignacionpedido ||--o{ Producto : Asignado
+    Pedido ||--o{ Asignacionpedido : Tiene
+    Partida }|..|{ Fila : Contiene
+    Fila ||--o{ Turno : Tiene
+    Turno ||--o{ Detalleturno : Contiene
+    Detalleturno ||--o{ Tirada : Tiene
+    Historialestadoreserva }|--o{ Estadoreserva : Registra
+    Pista }|..|{ Historialestadopista : Tiene
+    Pista ||--o{ Estadopista : Tiene
+    Reserva ||--o{ Partida : Ocurre
+    Producto }|..|{ Precioproducto : Tiene
