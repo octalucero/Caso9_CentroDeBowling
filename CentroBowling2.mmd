@@ -13,11 +13,6 @@ erDiagram
         String max_capacidad
     }
 
-    EstadoPista {
-        String nombre PK
-        String descripcion
-    }
-
     HistorialEstadoPista {
         datetime fecha_hora_inicio PK
         datetime fecha_hora_fin
@@ -108,14 +103,20 @@ erDiagram
     }
     
     Cliente ||--o{ Reserva : Tiene
+    Cliente ||--o{ HistorialEstadoReserva : Tiene 
+    Cliente ||--o{ Pedido : Tiene
+    Pedido ||--o{ Producto : Tiene
     Reserva ||--o{ Pista : Tiene
     Reserva ||--o{ HistorialEstadoReserva : Tiene
     Partida }|..|{ Fila : Tiene
+    Producto ||--o{ Menu : Tiene 
+    Menu ||--o{ ProductoMenu : Tiene
+    Pedido ||--o{ DetallePedido : Tiene 
+    ProductoMenu ||--o{ AsignacionPedido : Tiene
     Fila ||--o{ Turno : Tiene
     Turno ||--o{ DetalleTurno : Tiene
     DetalleTurno ||--o{ Tirada : Tiene
     HistorialEstadoReserva }|--o{ EstadoReserva : Tiene
-    Pista ||--o{ EstadoPista : Tiene
+    Pista ||--o{ HistorialEstadoPista : Tiene
     Reserva ||--o{ Partida : Tiene
-    Producto }|..|{ Precioproducto : Tiene
-    
+    Producto }|..|{ PrecioProducto : Tiene
