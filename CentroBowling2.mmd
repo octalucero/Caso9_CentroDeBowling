@@ -91,6 +91,14 @@ erDiagram
     }
 
     DetalleTurno {
+        String Turno PK
+        String nombre
+        String fecha_hora_inicio
+        String fecha_hora_fin
+        String dia_reserva
+    }
+
+    DetalleTurno {
         String nombre PK
         String descripcion
     }
@@ -99,19 +107,15 @@ erDiagram
         String pinos_derribados
     }
     
-    Participante ||--o{ Reserva : Hace
-    Pedido }|..|{ Detallepedido : Contiene
-    Reserva ||--o{ Pista : Para
+    Cliente ||--o{ Reserva : Tiene
+    Reserva ||--o{ Pista : Tiene
     Reserva ||--o{ HistorialEstadoReserva : Tiene
-    Asignacionedido ||--o{ Menu : Asignado
-    AsignacionPedido ||--o{ Producto : Asignado
-    Pedido ||--o{ Asignacionpedido : Tiene
-    Partida }|..|{ Fila : Contiene
+    Partida }|..|{ Fila : Tiene
     Fila ||--o{ Turno : Tiene
-    Turno ||--o{ Detalleturno : Contiene
-    Detalleturno ||--o{ Tirada : Tiene
-    HistorialEstadoReserva }|--o{ EstadoReserva : Registra
-    Pista }|..|{ HistorialestadoPista : Tiene
+    Turno ||--o{ DetalleTurno : Tiene
+    DetalleTurno ||--o{ Tirada : Tiene
+    HistorialEstadoReserva }|--o{ EstadoReserva : Tiene
     Pista ||--o{ EstadoPista : Tiene
-    Reserva ||--o{ Partida : Ocurre
+    Reserva ||--o{ Partida : Tiene
     Producto }|..|{ Precioproducto : Tiene
+    
