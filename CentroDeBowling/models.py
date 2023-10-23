@@ -204,7 +204,6 @@ class Turno(models.Model):
 class DetalleTurno(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
-    listaposicion = models.ManyToManyField('Posicion')
 
     def calcularTurno(self):
         # Implementa la lógica para calcular un turno
