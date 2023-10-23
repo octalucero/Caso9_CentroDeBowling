@@ -216,3 +216,5 @@ class Tirada(models.Model):
     def crear(self):
         # Implementa la lógica para registrar una tirada
         pass
+
+
