@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .views import base
+from .views import base, login
 from . import views
 from django.urls import path
 
