@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth import login
 from django.http import HttpResponse
 
 def home(request):
@@ -17,6 +18,7 @@ def signup(request):
             try:
                 user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
                 user.save()
+                login(request, user)
                 return redirect('reserva')
             except:
                 return render (request, 'signup.html', {
