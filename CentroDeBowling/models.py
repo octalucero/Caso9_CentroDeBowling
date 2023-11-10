@@ -5,11 +5,9 @@ class Pista(models.Model):
     max_capacidad = models.IntegerField()
 
     def crear(self):
-        # Implementa la lógica para crear una pista
         pass
 
     def verificarEstadoPista(self):
-        # Implementa la lógica para verificar el estado de la pista
         pass
 
 class EstadoPista(models.Model):
@@ -30,11 +28,9 @@ class Cliente(models.Model):
     listapedidos = models.ManyToManyField('Pedido')
 
     def crear(self):
-        # Implementa la lógica para crear un cliente
         pass
 
     def hacerReserva(self):
-        # Implementa la lógica para hacer una reserva
         pass
 
 class Reserva(models.Model):
