@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 class Pista(models.Model):
     numero_identificativo = models.CharField(max_length=50)
     max_capacidad = models.IntegerField()
@@ -44,27 +42,21 @@ class Reserva(models.Model):
     hora_reserva = models.TimeField()
 
     def crear(self):
-        # Implementa la lógica para crear una reserva
         pass
 
     def mostrar(self):
-        # Implementa la lógica para mostrar la reserva
         pass
 
     def cancelar(self):
-        # Implementa la lógica para cancelar la reserva
         pass
 
     def calcularCostoTotal(self):
-        # Implementa la lógica para calcular el costo total de la reserva
         pass
 
     def cobrarCostoTotal(self):
-        # Implementa la lógica para cobrar el costo total de la reserva
         pass
 
     def verificarEstadoReserva(self):
-        # Implementa la lógica para verificar el estado de la reserva
         pass
 
 class EstadoReserva(models.Model):
@@ -82,11 +74,9 @@ class Menu(models.Model):
     precio = models.FloatField()
 
     def crear(self):
-        # Implementa la lógica para crear un menú
         pass
 
     def mostrar(self):
-        # Implementa la lógica para mostrar el menú
         pass
 
 class ProductoMenu(models.Model):
@@ -99,7 +89,6 @@ class Producto(models.Model):
     precio = models.FloatField()
 
     def ActulizarPrecioProducto(self):
-        # Implementa la lógica para actualizar el precio del producto
         pass
 
 class Pedido(models.Model):
@@ -108,15 +97,12 @@ class Pedido(models.Model):
     hora = models.DateTimeField()
 
     def crear(self):
-        # Implementa la lógica para crear un pedido
         pass
 
     def cancelar(self):
-        # Implementa la lógica para cancelar el pedido
         pass
 
     def registrarpedido(self):
-        # Implementa la lógica para registrar el pedido
         pass
 
 class DetallePedido(models.Model):
@@ -125,7 +111,6 @@ class DetallePedido(models.Model):
     descripcion = models.TextField()
 
     def crear(self):
-        # Implementa la lógica para crear un detalle de pedido
         pass
 
 class PrecioProducto(models.Model):
@@ -133,7 +118,6 @@ class PrecioProducto(models.Model):
     fecha_vigencia = models.DateField()
 
     def verificarPrecioProducto(self):
-        # Implementa la lógica para verificar el precio de un producto
         pass
 
 class AsignacionPedido(models.Model):
@@ -141,11 +125,9 @@ class AsignacionPedido(models.Model):
     precio = models.IntegerField()
 
     def verificaEleccionPedido(self):
-        # Implementa la lógica para verificar la elección de un pedido
         pass
 
     def obetnerPrecio(self):
-        # Implementa la lógica para obtener el precio de la asignación de pedido
         pass
 
 class Partida(models.Model):
@@ -153,19 +135,15 @@ class Partida(models.Model):
     descripcion = models.TextField()
 
     def crear(self):
-        # Implementa la lógica para crear una partida
         pass
 
     def cancelarPartida(self):
-        # Implementa la lógica para cancelar una partida
         pass
 
     def calcularPuntajeTotal(self):
-        # Implementa la lógica para calcular el puntaje total de la partida
         pass
 
     def calcularCantidadJugadores(self):
-        # Implementa la lógica para calcular la cantidad de jugadores en la partida
         pass
 
 class Fila(models.Model):
@@ -174,11 +152,9 @@ class Fila(models.Model):
     listaturnos = models.ManyToManyField('Turno')
 
     def crear(self):
-        # Implementa la lógica para crear una fila
         pass
 
     def verificarListaTurnos(self):
-        # Implementa la lógica para verificar la lista de turnos
         pass
 
 class Turno(models.Model):
@@ -186,27 +162,23 @@ class Turno(models.Model):
     listatiradas = models.ManyToManyField('Tirada')
 
     def crear(self):
-        # Implementa la lógica para crear un turno
         pass
 
     def Calcularpinostotales(self):
-        # Implementa la lógica para calcular los pinos totales en un turno
         pass
 
     def verificarPosicion(self):
-        # Implementa la lógica para verificar la posición en el turno
         pass
 
     def verificarListaTiradas(self):
-        # Implementa la lógica para verificar la lista de tiradas en el turno
         pass
 
 class DetalleTurno(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
+    listaposicion = models.ManyToManyField('Posicion')
 
     def calcularTurno(self):
-        # Implementa la lógica para calcular un turno
         pass
 
 class Tirada(models.Model):
@@ -214,5 +186,5 @@ class Tirada(models.Model):
     pinos_derribados = models.IntegerField()
 
     def crear(self):
-        # Implementa la lógica para registrar una tirada
         pass
+    
