@@ -7,6 +7,8 @@ from django.http import HttpResponse
 def home(request):
     return render(request,'home.html')
 
+
+#comprueba si la contraseña ingresada es correcta, en caso de serlo redirige a la vista de reservas
 def signup(request):
     if request.method == 'GET':
         return render(request,'signup.html',{
@@ -27,6 +29,7 @@ def signup(request):
             'form': UserCreationForm,
             "error": 'Contra no coinciden'
         })
+
 
 def reserva(request):
     return render(request, 'rev.html')
