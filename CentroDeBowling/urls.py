@@ -1,10 +1,12 @@
 from django.contrib import admin
-from .views import base
+from .views import *
 from . import views
 from django.urls import path
 
 
 urlpatterns = [
-    path('', views.base, name = 'index'),
-    path('login/', base, name = 'login')
+    path('', home, name = 'home'),
+    path('login/',login,  name = 'login'),
+    path('signup/',signup,  name = 'signup'),
+    path('reserva/',reserva,  name = 'reserva')
 ]

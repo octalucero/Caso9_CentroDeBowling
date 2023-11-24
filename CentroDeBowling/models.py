@@ -183,4 +183,6 @@ class Tirada(models.Model):
 
     def crear(self):
         pass
+
+
     
