@@ -41,7 +41,7 @@ class Cliente(models.Model):
 
 class Reserva(models.Model):
     dia_reserva = models.DateField()
-    hora_reserva = models.TimeField()
+    hora_reserva =   models.TimeField()
 
     def crear(self):
         # Implementa la lógica para crear una reserva
