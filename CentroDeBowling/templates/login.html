@@ -12,11 +12,15 @@
 
     <br><br><h1>LOGIN</h1><br>
 
-    {{error}}
+    
 
     <form action="/login/" method="post">
         {% csrf_token %}
         {{form.as_p}}
+        <div class="text-danger">
+            {{ error }}
+        </div>
+        <br>
         <button class="btn btn-outline-primary">
             ENTER
         </button>
