@@ -127,8 +127,10 @@ class AsignacionPedido(models.Model):
         pass
 
 class Partida(models.Model):
-    identificador_unico = models.CharField(max_length=50)
-    descripcion = models.TextField()
+    reserva = models.OneToOneField(Reserva, on_delete=models.CASCADE)
+    fecha_hora_inicio = models.DateTimeField()
+    fecha_hora_fin = models.DateTimeField(null=True, blank=True)
+
 
     def crear(self):
         pass
@@ -142,6 +144,13 @@ class Partida(models.Model):
     def calcularCantidadJugadores(self):
         pass
 
+
+class Jugador(models.Model):
+    partida = models.ForeignKey(Partida, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100)
+    puntaje = models.IntegerField(default=0)
+
+    
 class Fila(models.Model):
     identificador_unico = models.CharField(max_length=50)
     nombre = models.CharField(max_length=100)
