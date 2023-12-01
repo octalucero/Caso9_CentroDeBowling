@@ -26,9 +26,8 @@ SECRET_KEY = 'django-insecure-0u&cqsn$(02re&*fc-w&yt8-3rir0_n86iawbcyo@e522oq2ns
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = 'CentroDeBowling.Cliente'
 
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -101,6 +100,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -122,3 +125,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
