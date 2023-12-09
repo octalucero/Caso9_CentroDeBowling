@@ -44,8 +44,11 @@
           </li>
           <li><a class="nav-link scrollto" href="#contact">Contactanos</a></li>
           {% if user.is_authenticated %}
-            <li><a class="nav-link scrollto">{{ user.username }}</a></li>
-            <a type = "submit" class="nav-link scrollto ">Iniciar sesión</a>
+          <li><a class="nav-link scrollto">{{ user.username }}</a></li>
+          <form action="{% url 'index' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="nav-link scrollto" style="background: none; border: none; cursor: pointer;">Cerrar sesión</button>
+          </form>
             {% else %}
             <a href="{% url 'login' %}" class="btn btn-outline-light">Iniciar sesión</a>
             <a href="{% url 'registro' %}" class="btn btn-outline-light">Registrarse</a>

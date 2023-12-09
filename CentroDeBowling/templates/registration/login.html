@@ -52,7 +52,7 @@
                 <label class="text-black" for="subject">Contraseña:</label>
                 <input type="password" class="form-control" name="password" id="" placeholder="Ingresa Tu Contraseña " required>
               </div>
-              <div class="text-center"><button type="submit" onclick="{% url 'index' %}">Iniciar</button></div>
+              <div class="text-center"><button ><a type="submit" href="{% url 'index' %}">Iniciar</a></button></div>
               <a href="{% url 'registro' %}">¿No tienes una cuenta? Registrate</a>
             </form>
           </div>

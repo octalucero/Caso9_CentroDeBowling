@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import logout
+from django.contrib  import messages
 
 
 class BaseView(View):
@@ -80,7 +81,8 @@ class ReservaView(View):
             
             return HttpResponse("¡Reserva creada exitosamente!")
         else:
-            return HttpResponse("Debe iniciar sesión para realizar una reserva.")
+            messages.error(request, "Debe iniciar sesión para realizar una reserva.")
+            return redirect('reserva')
 def registro(request):
     if request.method == 'POST':
         nombre = request.POST['nombre']
@@ -139,7 +141,7 @@ class ClienteView(View):
         )
 
 
-        return HttpResponse("¡Cliente creado exitosamente!")
+        return redirect(request, 'index.html')
     
 
 class CafeteriaView(View):
