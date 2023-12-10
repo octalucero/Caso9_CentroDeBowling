@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
@@ -52,12 +52,12 @@ def reserva(request):
         hora = request.POST['hora_inicio']
         reserva = Reserva(dia_reserva=fecha,hora_reserva=hora)
         reserva.save()
-        return render(request,'reserva.html')
-    return render(request,'reserva.html')
+        return render(request,'reservar.html')
+    return render(request,'reservar.html')
 
 
-class ReservaView(View):
-    template_name = 'reserva.html'
+class ReservarView(View):
+    template_name = 'reservar.html'
 
     def get(self, request):
         return render(request, self.template_name)
@@ -82,7 +82,7 @@ class ReservaView(View):
             return HttpResponse("¡Reserva creada exitosamente!")
         else:
             messages.error(request, "Debe iniciar sesión para realizar una reserva.")
-            return redirect('reserva')
+            return redirect('reservar')
 def registro(request):
     if request.method == 'POST':
         nombre = request.POST['nombre']
@@ -110,6 +110,44 @@ def registro(request):
     
     return render(request, 'registration/registro.html')
 
+class ReservasView(View):
+    template_name = 'rev.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+    
+class EditView(View):
+    template_name = 'edit.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+    
+    def get(self, request, pk):
+        reserva = get_object_or_404(Reserva, pk=pk)
+        form = ReservarView(instance=reserva)
+        return render(request, self.template_name, {'form': form, 'reserva': reserva})
+
+    def post(self, request, pk):
+        reserva = get_object_or_404(Reserva, pk=pk)
+        form = ReservarView(request.POST, instance=reserva)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("¡Reserva editada exitosamente!")
+        return render(request, self.template_name, {'form': form, 'reserva': reserva})
+    
+
+class ReadView(View):
+    template_name = 'read.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+    
+class DeleteView(View):
+    template_name = 'borrar.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+    
 
 class ClienteView(View):
     template_name = 'registration/registro.html'

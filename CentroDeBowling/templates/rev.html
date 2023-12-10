@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Centro de Bowling</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css"' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+    
+          <!-- Crear Reserva -->
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Crear Reserva</h5>
+                <p class="card-text">Haz clic para crear una nueva reserva.</p>
+                <a href="{% url 'reservar' %}" class="btn btn-primary">Ir a Crear Reserva</a>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Editar Reserva -->
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Editar Reserva</h5>
+                <p class="card-text">Haz clic para editar una reserva existente.</p>
+                <a href="{% url 'editar' %}" class="btn btn-primary">Ir a Editar Reserva</a>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Ver Reserva -->
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Ver Reserva</h5>
+                <p class="card-text">Haz clic para ver detalles de una reserva.</p>
+                <a href="{% url 'read' %}" class="btn btn-primary">Ir a Ver Reserva</a>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Borrar Reserva -->
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Borrar Reserva</h5>
+                <p class="card-text">Haz clic para borrar una reserva existente.</p>
+                <a href="{% url 'borrar' %}" class="btn btn-danger">Ir a Borrar Reserva</a>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+</body>
