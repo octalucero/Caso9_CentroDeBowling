@@ -79,27 +79,13 @@ class Reserva(models.Model):
     dia_reserva = models.DateField()
     hora_reserva = models.TimeField()   
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    def crear(self):
-        pass
-    def mostrar(self):
-        # Implementa la lógica para mostrar la reserva
-        pass
+    
+    def __str__(self) -> str:
+        return f"{self.cliente.username} - {self.dia_reserva} - {self.hora_reserva}"
 
-    def cancelar(self):
-        # Implementa la lógica para cancelar la reserva
-        pass
-
-    def calcularCostoTotal(self):
-        # Implementa la lógica para calcular el costo total de la reserva
-        pass
-
-    def cobrarCostoTotal(self):
-        # Implementa la lógica para cobrar el costo total de la reserva
-        pass
-
-    def verificarEstadoReserva(self):
-        # Implementa la lógica para verificar el estado de la reserva
-        pass
+class Meta:
+        # Definir una restricción única para garantizar la combinación única de cliente, fecha y hora
+        unique_together = ['cliente', 'dia_reserva', 'hora_reserva']
 
 class EstadoReserva(models.Model):
     nombre = models.CharField(max_length=50)

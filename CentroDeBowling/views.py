@@ -120,33 +120,77 @@ class EditView(View):
     template_name = 'edit.html'
 
     def get(self, request):
-        return render(request, self.template_name)
-    
-    def get(self, request, pk):
-        reserva = get_object_or_404(Reserva, pk=pk)
-        form = ReservarView(instance=reserva)
-        return render(request, self.template_name, {'form': form, 'reserva': reserva})
+        # Obtener la reserva asociada al cliente actual
+        usuario = request.user.id
+        reserva = Reserva.objects.filter(cliente__id=usuario)
 
-    def post(self, request, pk):
-        reserva = get_object_or_404(Reserva, pk=pk)
-        form = ReservarView(request.POST, instance=reserva)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("¡Reserva editada exitosamente!")
-        return render(request, self.template_name, {'form': form, 'reserva': reserva})
+        if reserva:
+            # Renderizar el formulario de edición con los datos de la reserva
+            return render(request, self.template_name, {'reserva': reserva})
+        else:
+            messages.error(request, "No hay reserva para editar.")
+            return redirect('reservar')
+
+    def post(self, request):
+        reserva = Reserva.objects.all()
+
     
 
 class ReadView(View):
     template_name = 'read.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        # Obtener la reserva asociada al cliente actual
+        usuario = request.user.id
+        reserva = Reserva.objects.filter(cliente__id=usuario)
+
+        if reserva:
+            # Renderizar el formulario de edición con los datos de la reserva
+            return render(request, self.template_name, {'reserva': reserva})
+        else:
+            messages.error(request, "No hay reservas.")
+            return redirect('reservar')
+
+    def post(self, request):
+         cliente_id = request.POST.get('cliente_id')
+         dia_reserva = request.POST.get('dia_reserva')
+         hora_reserva = request.POST.get('hora_reserva')
+
+        # Buscar la reserva en base a la combinación de campos
+         reserva = Reserva.objects.filter(cliente_id=cliente_id, dia_reserva=dia_reserva, hora_reserva=hora_reserva).first()
+
+         if reserva:
+            # Actualizar los campos de la reserva directamente
+            reserva.cliente_id = request.POST.get('cliente_id')
+            reserva.dia_reserva = request.POST.get('dia_reserva')
+            reserva.hora_reserva = request.POST.get('hora_reserva')
+            # Agregar más campos según sea necesario
+
+            reserva.save()
+
+            messages.success(request, "Reserva actualizada exitosamente.")
+            return redirect('reservas')
+         else:
+            messages.error(request, "No se encontró la reserva para editar.")
+            return redirect('reservar')
     
 class DeleteView(View):
     template_name = 'borrar.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        # Obtener la reserva asociada al cliente actual
+        usuario = request.user.id
+        reserva = Reserva.objects.filter(cliente__id=usuario)
+
+        if reserva:
+            # Renderizar el formulario de edición con los datos de la reserva
+            return render(request, self.template_name, {'reserva': reserva})
+        else:
+            messages.error(request, "No hay reservas.")
+            return redirect('reservar')
+
+    def post(self, request):
+        reserva = Reserva.objects.all()
     
 
 class ClienteView(View):
