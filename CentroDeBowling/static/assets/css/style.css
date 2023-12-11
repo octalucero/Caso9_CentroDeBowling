@@ -77,7 +77,7 @@ h6 {
 }
 
 #header.header-transparent {
-  background: none;
+  background: #052c3f;
 }
 
 #header.header-scrolled {
@@ -133,6 +133,11 @@ h6 {
 
 .navbar li {
   position: relative;
+}
+
+.cont_all{
+  margin-top: 10% !important;
+
 }
 
 .navbar a,

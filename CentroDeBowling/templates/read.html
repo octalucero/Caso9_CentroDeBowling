@@ -24,14 +24,55 @@
 
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 
+  <!-- Estilos personalizados -->
+  <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet">
+
 </head>
 
 <body>
-    <h1>Tus Reservas</h1><br>
-    {% for Reserva in reserva %}
-        <h1>{{Reserva}}</h1>
-        <form action="" method="post">
-            {% csrf_token %}
-        </form>
-    {% endfor %}
+    <header id="header" class="fixed-top d-flex align-items-center header-blue">
+        <div class="container d-flex align-items-center justify-content-between">
+    
+          <div class="logo">
+            <h1><a href="{% url 'index' %}">LMBowling</a></h1>
+          </div>
+    
+          <nav id="navbar" class="navbar">
+            <ul>
+              <li><a class="nav-link scrollto active" href="{% url 'index' %}">Home</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'reservas' %}">Reserva</a></li>
+              <li><a class="nav-link scrollto " href="{% url 'cafeteria' %}">Cafeteria</a></li>
+              <li><a class="nav-link scrollto" href="#contact">Contactanos</a></li>
+              {% if user.is_authenticated %}
+              <li><a class="nav-link scrollto">{{ user.username }}</a></li>
+              <form action="{% url 'index' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="nav-link scrollto" style="background: none; border: none; cursor: pointer;">Cerrar sesión</button>
+              </form>
+              {% else %}
+              <li>
+                <a href="{% url 'login' %}" class="btn btn-outline-light">Iniciar sesión</a>
+                <a href="{% url 'registro' %}" class="btn btn-outline-light">Registrarse</a>
+              </li>
+              {% endif %}
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav><!-- .navbar -->
+        </div>
+      </header><br><br><br><br>
+    <div class="container mt-5 cont_all">
+        <h1 class="section-title">Tus Reservas</h1><br>
+
+        {% for Reserva in reserva %}
+        <div class="reserva-item">
+            <h2>{{ Reserva }}</h2>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input value="{{ Reserva.id }}" name="reservaid" hidden>
+                <a href="{% url 'iniciar1' Reserva.id %}" class="custom-link">Iniciar</a>    
+            </form>
+        </div>
+        {% endfor %}
+    </div>
 </body>
+</html>

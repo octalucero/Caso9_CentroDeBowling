@@ -27,12 +27,102 @@
 </head>
 
 <body>
-    <h1>Editar una Reserva</h1><br>
-    {% for Reserva in reserva %}
-        <h1>{{Reserva}}</h1>
-        <form action="" method="post">
+  {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Centro de Bowling</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css"' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- Estilos personalizados -->
+  <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-blue">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="{% url 'index' %}">LMBowling</a></h1>
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{% url 'index' %}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'reservas' %}">Reserva</a></li>
+          <li><a class="nav-link scrollto " href="{% url 'cafeteria' %}">Cafeteria</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contactanos</a></li>
+          {% if user.is_authenticated %}
+          <li><a class="nav-link scrollto">{{ user.username }}</a></li>
+          <form action="{% url 'index' %}" method="post" style="display: inline;">
             {% csrf_token %}
-            <input type="submit" value="EDITAR">
-        </form>
+            <button type="submit" class="nav-link scrollto" style="background: none; border: none; cursor: pointer;">Cerrar sesión</button>
+          </form>
+          {% else %}
+          <li>
+            <a href="{% url 'login' %}" class="btn btn-outline-light">Iniciar sesión</a>
+            <a href="{% url 'registro' %}" class="btn btn-outline-light">Registrarse</a>
+          </li>
+          {% endif %}
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+    </div>
+  </header><br><br><br><br>
+
+  <div class="container mt-5 cont_all">
+    <h1 class="section-title">Editar una Reserva</h1><br>
+
+    {% for Reserva in reserva %}
+    <div class="reserva-item">
+      <h2>{{ Reserva }}</h2>
+        <input value="{{ Reserva.id }}" name="reservaid" hidden>
+        <a href="{% url 'editar2' Reserva.id %}">Editar</a>
+
+    </div>
     {% endfor %}
+  </div>
+
+
+  <style>
+    .custom-link {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #007bff;
+      text-decoration: underline;
+      padding: 0;
+    }
+
+    .custom-link:hover {
+      color: #0056b3;
+    }
+
+    .reserva-item {
+      margin-bottom: 20px;
+    }
+  </style>
+
 </body>

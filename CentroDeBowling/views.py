@@ -36,7 +36,7 @@ class LoginView(View):
             if user is not None:
                 login(request, user)
                 print(f"Usuario {username} autenticado correctamente")
-                return render(request, 'index.html')
+                return redirect('index')
             else:
                 print(f"Usuario {username} {password}")
                 print(user)
@@ -54,6 +54,69 @@ def reserva(request):
         reserva.save()
         return render(request,'reservar.html')
     return render(request,'reservar.html')
+
+
+class Iniciar1(View):
+    template_name = 'iniciar1.html'
+
+    def get(self, request, reserva_id):
+        return render(request, self.template_name)
+    
+    def post(self, request, reserva_id):
+        cant_personas = request.POST.get('cantidad_personas')
+        
+        reserva = Reserva.objects.get(id=reserva_id)
+        reserva.cant_personas = cant_personas
+        reserva.save()
+        
+        return redirect('iniciar2', reserva_id=reserva_id)
+
+
+class Iniciar2(View):
+    template_name = 'iniciar2.html'
+
+    def get(self, request, reserva_id):
+        reserva = Reserva.objects.get(id=reserva_id)
+        context = {
+            'reserva': reserva,
+        }
+        return render(request, self.template_name, context)
+    
+    def post(self, request, reserva_id):
+        # Obtén la reserva correspondiente al ID
+        reserva = Reserva.objects.get(id=reserva_id)
+        puntaje_num = []
+        for jugador in range(1, reserva.cant_personas + 1):
+            # Crea un objeto Puntaje para cada jugador y turno
+            puntaje = Puntaje(
+                nombre=f"Jugador {jugador}", 
+                reserva=reserva,
+            )
+
+            # Inicializa el total para el jugador actual
+            total_jugador = 0
+
+            # Itera sobre los turnos y asigna los valores dinámicamente
+            for turno in range(1, 6):
+                campo_name = f"jugador_{jugador}_campo_{turno}"
+                valor = request.POST.get(campo_name)
+                setattr(puntaje, f"turno{turno}", valor)
+
+                # Suma el valor al total del jugador
+                total_jugador += int(valor) if valor else 0
+
+            # Asigna el total al atributo 'total' del objeto Puntaje
+            puntaje.total = total_jugador
+
+            puntaje.save()  # Guarda el objeto Puntaje en la base de datos
+            print(f"Datos del Puntaje (Jugador {jugador}): {puntaje.__dict__}")
+            puntaje_num.append(puntaje.total)
+
+        context = {
+            'reserva': reserva,
+            'puntajes': puntaje_num
+        }
+        return render(request, self.template_name, context)
 
 
 class ReservarView(View):
@@ -79,10 +142,12 @@ class ReservarView(View):
                 cliente_id=cliente_id
             )
             
-            return HttpResponse("¡Reserva creada exitosamente!")
+            messages.success(request,"¡Reserva creada exitosamente!")
+            return redirect('index')
         else:
             messages.error(request, "Debe iniciar sesión para realizar una reserva.")
             return redirect('reservar')
+        
 def registro(request):
     if request.method == 'POST':
         nombre = request.POST['nombre']
@@ -116,6 +181,7 @@ class ReservasView(View):
     def get(self, request):
         return render(request, self.template_name)
     
+    
 class EditView(View):
     template_name = 'edit.html'
 
@@ -131,10 +197,30 @@ class EditView(View):
             messages.error(request, "No hay reserva para editar.")
             return redirect('reservar')
 
-    def post(self, request):
-        reserva = Reserva.objects.all()
+
+class EditarView(View):
+    template_name = 'editar.html'
+
+    def get(self, request, reserva_id):
+        return render(request, self.template_name)
+
+    def post(self, request, reserva_id):
+        fecha = request.POST.get('fecha')
+        hora = request.POST.get('hora_inicio')
+        
+        try:
+            reserva = Reserva.objects.get(id=reserva_id)
+
+            reserva.dia_reserva=fecha
+            reserva.hora_reserva=hora
+            reserva.save()
+            
+            return HttpResponse("¡Reserva actualizada exitosamente!")
+        except:
+            return HttpResponse("¡Hubo un error!")
 
     
+
 
 class ReadView(View):
     template_name = 'read.html'
@@ -144,35 +230,8 @@ class ReadView(View):
         usuario = request.user.id
         reserva = Reserva.objects.filter(cliente__id=usuario)
 
-        if reserva:
-            # Renderizar el formulario de edición con los datos de la reserva
-            return render(request, self.template_name, {'reserva': reserva})
-        else:
-            messages.error(request, "No hay reservas.")
-            return redirect('reservar')
+        return render(request, self.template_name, {'reserva': reserva})
 
-    def post(self, request):
-         cliente_id = request.POST.get('cliente_id')
-         dia_reserva = request.POST.get('dia_reserva')
-         hora_reserva = request.POST.get('hora_reserva')
-
-        # Buscar la reserva en base a la combinación de campos
-         reserva = Reserva.objects.filter(cliente_id=cliente_id, dia_reserva=dia_reserva, hora_reserva=hora_reserva).first()
-
-         if reserva:
-            # Actualizar los campos de la reserva directamente
-            reserva.cliente_id = request.POST.get('cliente_id')
-            reserva.dia_reserva = request.POST.get('dia_reserva')
-            reserva.hora_reserva = request.POST.get('hora_reserva')
-            # Agregar más campos según sea necesario
-
-            reserva.save()
-
-            messages.success(request, "Reserva actualizada exitosamente.")
-            return redirect('reservas')
-         else:
-            messages.error(request, "No se encontró la reserva para editar.")
-            return redirect('reservar')
     
 class DeleteView(View):
     template_name = 'borrar.html'
@@ -182,15 +241,19 @@ class DeleteView(View):
         usuario = request.user.id
         reserva = Reserva.objects.filter(cliente__id=usuario)
 
-        if reserva:
-            # Renderizar el formulario de edición con los datos de la reserva
-            return render(request, self.template_name, {'reserva': reserva})
-        else:
-            messages.error(request, "No hay reservas.")
-            return redirect('reservar')
+        return render(request, self.template_name, {'reserva': reserva})
 
     def post(self, request):
-        reserva = Reserva.objects.all()
+        reservaid = request.POST.get('id')
+
+        reserva = Reserva.objects.get(id=reservaid)
+
+        reserva.delete()
+        usuario = request.user.id
+        reservas = Reserva.objects.filter(cliente__id=usuario)
+
+        return render(request, self.template_name, {'reserva': reservas})
+
     
 
 class ClienteView(View):
@@ -223,7 +286,7 @@ class ClienteView(View):
         )
 
 
-        return redirect(request, 'index.html')
+        return redirect('index')
     
 
 class CafeteriaView(View):

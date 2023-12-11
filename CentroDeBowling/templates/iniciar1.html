@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar Cantidad de Personas</title>
+</head>
+<body>
+
+    <h2>Ingrese la Cantidad de Personas:</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="cantidad_personas">Cantidad de Personas:</label>
+        <input type="number" id="cantidad_personas" name="cantidad_personas" required>
+        <button type="submit">Enviar</button>
+    </form>
+    
+</body>
+</html>

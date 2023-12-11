@@ -26,6 +26,39 @@
 </head>
 
 <body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-blue">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="{% url 'index' %}">LMBowling</a></h1>
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{% url 'index' %}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'reservas' %}">Reserva</a></li>
+          <li><a class="nav-link scrollto " href="{% url 'cafeteria' %}">Cafeteria</a></li>
+          </li>
+          <li><a class="nav-link scrollto" href="#contact">Contactanos</a></li>
+          {% if user.is_authenticated %}
+          <li><a class="nav-link scrollto">{{ user.username }}</a></li>
+          <form action="{% url 'index' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="nav-link scrollto" style="background: none; border: none; cursor: pointer;">Cerrar sesión</button>
+          </form>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-outline-light">Iniciar sesión</a>
+            <a href="{% url 'registro' %}" class="btn btn-outline-light">Registrarse</a>
+            {% endif %}
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+        
+
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><br><br>
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact section-bg">
       <div class="container">

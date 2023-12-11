@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Centro de Bowling</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css"' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>EDITAR RESERVA</h2>
+          <p>Utilize este formulario para editar una reserva</p>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row mt-5 justify-content-center">
+        <div class="row mt-5 justify-content-center">
+          <div class="col-lg-10">
+            <form method="post" role="form" class="php-email-form" >
+                {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                    <label class="text-black" for="lbl-start-date">Fecha:</label>
+                    <input type="date" id="start-date" class="form-control" name="fecha">
+                </div>
+                
+                <div class="col-md-6 form-group">
+                    <label class="text-black" for="lbl-start-time">Hora:</label>
+                    <input type="time" id="start-time" class="form-control" name="hora_inicio">
+                </div>
+              <div class="form-group mt-3">
+                <label: class="text-black" for="lbl-start-time">Cantidad De Personas:</label>
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Ingrese la cantidad de Personas" required>
+              </div>
+
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Enviar Reserva</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+</body>
+
+</html>
